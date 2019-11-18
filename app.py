@@ -13,10 +13,14 @@ for member in members:
     for repo in repos:
         if(member.id == repo.owner.id):
             popularity_score = popularity_score + repo.stargazers_count 
-            if(repo.language not in user.languages):
+            if((repo.language not in user.languages) & (repo.language != None)):
                 user.languages.append(repo.language) 
     user.add_popularity_score(popularity_score)
     member_list.append(user)
+
+
+
+    
 
 
     
