@@ -1,4 +1,3 @@
-import json
 from github import Github
 from user import User
 g = Github("")
@@ -17,6 +16,7 @@ for member in members:
                 user.languages.append(repo.language) 
     user.add_popularity_score(popularity_score)
     member_list.append(user)
+print("Done")
 
 
 
