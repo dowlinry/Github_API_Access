@@ -3,12 +3,14 @@ from flask import Flask, render_template, url_for
 import plotly
 import plotly.graph_objs as go
 
-import pandas as pd
-import numpy as np
+
+from graph import Graph 
 import json
 
 web_server = Flask(__name__)
-df = pd.read_json('results.json')
+gp = Graph('results.json')
+gp.create_dataframe()
+df = gp.get_dataframe()
 
 @web_server.route('/')
 def index():

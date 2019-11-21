@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 
-g = Github("6de076fe0627f8df0c9a87b395fe299bea92b427")
+g = Github("")
 org = g.get_organization("amzn")
 members = org.get_members()
 
