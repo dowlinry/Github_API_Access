@@ -10,6 +10,7 @@ import json
 web_server = Flask(__name__)
 gp = Graph('results.json')
 gp.create_dataframe()
+gp.create_graph()
 df = gp.get_dataframe()
 
 @web_server.route('/')
