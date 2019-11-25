@@ -8,12 +8,12 @@ from graph import Graph
 import json
 
 web_server = Flask(__name__)
-gp = Graph('results.json')
-gp.create_graph()
+gp = Graph('results.json','languages.json')
+gp.get_most_used_languages(1)
 
-@web_server.route('/')
-def index():
-    return render_template('index.html')
+#@web_server.route('/')
+#def index():
+#    return render_template('index.html')
 
-if  __name__ == '__main__':
-    web_server.run(debug=True)
+#if  __name__ == '__main__':
+#    web_server.run(debug=True)
