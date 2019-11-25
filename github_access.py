@@ -1,7 +1,5 @@
 from github import Github
-from user import User
 import pandas as pd
-import numpy as np
 
 
 g = Github("")
@@ -28,8 +26,6 @@ for member in members:
         df.loc[member_count] = [member.id] + [popularity_score] + [known_languages] + [language_count]
         member_count += 1      
     
-
-print(df)
 df.to_json('results.json')
 
 

@@ -9,13 +9,11 @@ import json
 
 web_server = Flask(__name__)
 gp = Graph('results.json')
-gp.create_dataframe()
 gp.create_graph()
-df = gp.get_dataframe()
 
 @web_server.route('/')
 def index():
-    return render_template('index.html', tables=[df.to_html(classes='data')], titles=df.columns.values)
+    return render_template('index.html')
 
 if  __name__ == '__main__':
     web_server.run(debug=True)

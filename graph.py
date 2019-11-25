@@ -1,19 +1,13 @@
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
+from plotly.offline import plot,iplot
 
 class Graph:
-    file_name = ""
     df = pd.DataFrame()
 
     def __init__(self,file_name):
-        self.file_name = file_name
-
-    def create_dataframe(self):
-        self.df = pd.read_json(self.file_name)
-
-    def get_dataframe(self):
-        return self.df
+        self.df = pd.read_json(file_name)
 
     def create_graph(self):
         max_languages = self.get_max_languages()
@@ -22,11 +16,9 @@ class Graph:
         fig = go.Figure(data = [go.Bar(
                         x = x, y = y                    
         )])
-        fig.show()
-    
-        
-
-    
+        plot(fig)
+        return fig
+ 
     def calculate_avg_popularity_score(self, num_languages):
         tmp_df = self.df
         avg_popularity_score = (tmp_df.loc[tmp_df['Number of Known Languages'] == num_languages])['Popularity Score'].mean()
