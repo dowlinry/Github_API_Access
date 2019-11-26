@@ -7,6 +7,7 @@ class Graph:
     pop_df = pd.DataFrame()
     lang_df = pd.DataFrame()
 
+
     def __init__(self,file_name_1,file_name_2):
         self.pop_df = pd.read_json(file_name_1)
         self.lang_df = pd.read_json(file_name_2)
@@ -35,12 +36,11 @@ class Graph:
 
         fig.update_layout(
             barmode = 'stack',
-            title = "Title",
+            title = "Popularity vs Number of Languages Known",
             xaxis_title = "Number of Languages Known",
             yaxis_title = "Average Popularity Score per Language Known",
             showlegend = False
         )
-        plot(fig)
         return fig
  
     def calculate_avg_popularity_score(self, num_languages):
@@ -101,3 +101,21 @@ class Graph:
                 new_val = ((langs.get(lang)/total_val)*pop).round()
                 langs.update({lang: new_val})
             return langs
+    
+    def create_dataframe(self):
+        list = self.generate_y_axis(self.get_max_languages())
+        df = pd.DataFrame(columns = ['Language','Approx. Popularity Score of Language','Languages Known by User'])
+        count = 0
+        index = 0
+        while(count <= self.get_max_languages()):
+            try:
+                tmp_dict = list[count]
+                key = min(tmp_dict, key = tmp_dict.get)
+                df.loc[index] = [str(key)] + [tmp_dict[key]] + [count]
+                tmp_dict.pop(key)
+                list[count] = tmp_dict
+                index = index + 1
+            except(TypeError,ValueError):
+                count = count + 1
+        return df
+
