@@ -1,7 +1,5 @@
 import pandas as pd
-import numpy as np
 import plotly.graph_objects as go
-from plotly.offline import plot,iplot
 
 class Graph:
     pop_df = pd.DataFrame()
@@ -36,7 +34,6 @@ class Graph:
 
         fig.update_layout(
             barmode = 'stack',
-            title = "Popularity vs Number of Languages Known",
             xaxis_title = "Number of Languages Known",
             yaxis_title = "Average Popularity Score per Language Known",
             showlegend = False

@@ -1,9 +1,7 @@
 from github import Github
 import pandas as pd
 
-
-
-g = Github("9e3dcc77246a31a523fa1123dbea1e033a52d2f0")
+g = Github("")
 orgs = []
 
 

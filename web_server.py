@@ -1,8 +1,6 @@
 from flask import Flask, render_template, url_for
 
 from graph import Graph 
-import chart_studio.tools as tls
-import plotly.graph_objects as go
 
 web_server = Flask(__name__)
 gp = Graph('results.json','languages.json')
