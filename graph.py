@@ -15,13 +15,30 @@ class Graph:
         max_languages = self.get_max_languages()
         x = self.generate_x_axis(max_languages)
         y = self.generate_y_axis(max_languages)
-        fig = go.Figure(data = [go.Bar(
-                        x = x, y = y                    
-        )])
+        fig = go.Figure()
+        count0 = 0
+        while(count0 <= max_languages):
+            count1 = 0
+            tmp_y = []
+            while(count1 <= max_languages):
+                tmp_dict = y[count1]
+                try:
+                    key = min(tmp_dict, key = tmp_dict.get) 
+                    tmp_y.append(tmp_dict[key])  
+                    tmp_dict.pop(key)
+                    y[count1] = tmp_dict                  
+                except (ValueError, TypeError) as e:
+                    tmp_y.append(0)
+                count1 = count1 + 1
+            fig.add_bar(x = x, y = tmp_y)
+            count0 = count0 + 1 
+
         fig.update_layout(
+            barmode = 'stack',
             title = "Title",
             xaxis_title = "Number of Languages Known",
             yaxis_title = "Average Popularity Score per Language Known",
+            showlegend = False
         )
         plot(fig)
         return fig
@@ -50,21 +67,37 @@ class Graph:
         y = []
         count = 0
         while(count <= max_languages):
-            val = self.calculate_avg_popularity_score(count)
+            val = self.get_most_used_languages(count)
             y.append(val)
             count = count + 1
         return y
 
     def get_most_used_languages(self, num_languages):  
-        count = 0
-        langs = {}
-        tmp_df = self.lang_df.loc[self.lang_df['Number of Languages Known By User'] == num_languages]
-        for index,row in tmp_df.iterrows():
-            lang = row['Language']
-            
-
-
-
-            count = count + 1
-
-        return langs
+        if(self.calculate_avg_popularity_score(num_languages) == 0):
+            return {}
+        else:
+            count = 0
+            tmp_dict = {}
+            tmp_df = self.lang_df.loc[self.lang_df['Number of Languages Known By User'] == num_languages]
+            for index,row in tmp_df.iterrows():
+                lang = row['Language']
+                if(tmp_dict.get(lang) == None):
+                    tmp_dict.update({lang : 1})
+                else:
+                    count = tmp_dict.get(lang)
+                    count = count + 1
+                    tmp_dict.update({lang: count})
+            count = 0
+            langs = {}
+            while(count < num_languages):
+                max_key = max(tmp_dict, key = tmp_dict.get)
+                max_key_value = tmp_dict.get(max_key)
+                langs.update({max_key: max_key_value})
+                tmp_dict.pop(max_key, None)
+                count = count + 1
+            pop = self.calculate_avg_popularity_score(num_languages)
+            total_val = sum(langs.values())
+            for lang in langs:
+                new_val = ((langs.get(lang)/total_val)*pop).round()
+                langs.update({lang: new_val})
+            return langs

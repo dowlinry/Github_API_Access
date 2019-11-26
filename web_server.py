@@ -9,7 +9,7 @@ import json
 
 web_server = Flask(__name__)
 gp = Graph('results.json','languages.json')
-gp.get_most_used_languages(1)
+gp.create_graph()
 
 #@web_server.route('/')
 #def index():
