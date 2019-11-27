@@ -8,6 +8,9 @@ orgs = []
 def add_organisation(org):
     orgs.append(g.get_organization(org))
 
+def remove_organistion(org):
+    orgs.pop(g.get_organization(org))
+
 add_organisation("amzn")
 add_organisation("Facebook")
 add_organisation("Apple")
