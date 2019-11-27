@@ -32,3 +32,6 @@ Each full bar represents the average popularity of the users who know X amount o
   - Run github_access.py to generate the data from the list of organisations
   - *Note: Adding one organisation and re-running the program will cause it to re-gather data from all organisations, not just the new one*
  - Run app.py to generate and display the graph of your gathered data
+ 
+ # Commits
+  [Initial Commit for Github Access](https://github.com/dowlinry/Github_API_Access/commit/4be19ae1a2ffa5803b0cc1f293a54108412b10e8)
