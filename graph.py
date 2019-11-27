@@ -1,6 +1,5 @@
 import pandas as pd
 import plotly.graph_objects as go
-from plotly.offline import plot
 
 class Graph:
     pop_df = pd.DataFrame()
@@ -42,7 +41,6 @@ class Graph:
             title = 'Popularity vs Languages Known',
             showlegend = False
         )
-        plot(fig)
         return fig
  
     def calculate_avg_popularity_score(self, num_languages):
