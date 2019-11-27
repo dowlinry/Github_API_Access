@@ -1,5 +1,6 @@
 import pandas as pd
 import plotly.graph_objects as go
+from plotly.offline import plot
 
 class Graph:
     pop_df = pd.DataFrame()
@@ -18,26 +19,30 @@ class Graph:
         count0 = 0
         while(count0 <= max_languages):
             count1 = 0
-            tmp_y = []
             while(count1 <= max_languages):
                 tmp_dict = y[count1]
                 try:
-                    key = min(tmp_dict, key = tmp_dict.get) 
-                    tmp_y.append(tmp_dict[key])  
+                    key = min(tmp_dict, key = tmp_dict.get)
+                    tmp_x = []
+                    tmp_y = []
+                    tmp_x.append(count1)
+                    tmp_y.append(tmp_dict[key])
+                    fig.add_bar(x = tmp_x, y = tmp_y, name = str(key)) 
                     tmp_dict.pop(key)
                     y[count1] = tmp_dict                  
                 except (ValueError, TypeError) as e:
-                    tmp_y.append(0)
+                  pass
                 count1 = count1 + 1
-            fig.add_bar(x = x, y = tmp_y)
             count0 = count0 + 1 
 
         fig.update_layout(
             barmode = 'stack',
             xaxis_title = "Number of Languages Known",
             yaxis_title = "Average Popularity Score per Language Known",
+            title = 'Popularity vs Languages Known',
             showlegend = False
         )
+        plot(fig)
         return fig
  
     def calculate_avg_popularity_score(self, num_languages):

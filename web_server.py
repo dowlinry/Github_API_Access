@@ -8,9 +8,9 @@ fig = gp.create_graph()
 df = gp.create_dataframe()
 
 
-@web_server.route('/')
-def index():
-    return render_template('index.html',tables=[df.to_html(classes='data')], titles=df.columns.values)
+#@web_server.route('/')
+#def index():
+#    return render_template('index.html',tables=[df.to_html(classes='data')], titles=df.columns.values)
 
-if  __name__ == '__main__':
-    web_server.run(debug=True)
+#if  __name__ == '__main__':
+#    web_server.run(debug=True)
